@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>가격협상 모듈-테이블 연계도</title>
+<style>
+  body { margin: 0; background: #f8f9fa; display: flex; justify-content: center; align-items: flex-start; padding: 24px; font-family: -apple-system, 'Apple SD Gothic Neo', sans-serif; }
+</style>
+</head>
+<body>
+<svg viewBox="0 0 800 430" width="800" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system, 'Apple SD Gothic Neo', sans-serif">
+
+  <!-- ===== LAYER LABELS ===== -->
+  <text x="14" y="110" font-size="9" fill="#bbb" font-weight="700" letter-spacing="1.5" transform="rotate(-90 14 110)">MODULE</text>
+  <text x="14" y="320" font-size="9" fill="#bbb" font-weight="700" letter-spacing="1.5" transform="rotate(-90 14 320)">TABLE</text>
+
+  <!-- ===== MODULE BOXES ===== -->
+  <!-- Module 1 -->
+  <rect x="35" y="16" width="310" height="168" rx="10" fill="#EEF2FF" stroke="#6366F1" stroke-width="2"/>
+  <text x="52" y="40" font-size="13" font-weight="700" fill="#4338CA">모듈 1 — 가격제안 확인</text>
+  <text x="52" y="57" font-size="10" fill="#555">유효성 검증 후 제안 발송</text>
+  <text x="52" y="70" font-size="10" fill="#555">별도 테이블 없음 (READ 조회만 사용)</text>
+  <!-- op tags -->
+  <rect x="52" y="80" width="178" height="18" rx="4" fill="#DBEAFE"/>
+  <text x="59" y="93" font-size="9.5" fill="#1E40AF">📖 READ — 횟수·하한선 검증</text>
+  <rect x="52" y="103" width="152" height="18" rx="4" fill="#DBEAFE"/>
+  <text x="59" y="116" font-size="9.5" fill="#1E40AF">📖 READ — 차단 여부 검증</text>
+  <rect x="52" y="126" width="176" height="18" rx="4" fill="#DBEAFE"/>
+  <text x="59" y="139" font-size="9.5" fill="#1E40AF">📖 READ — 기존 제안횟수 count</text>
+  <rect x="52" y="149" width="160" height="18" rx="4" fill="#DCFCE7"/>
+  <text x="59" y="162" font-size="9.5" fill="#15803D">✏️ CREATE — 제안 row 생성</text>
+
+  <!-- Module 2 -->
+  <rect x="455" y="16" width="310" height="152" rx="10" fill="#F0FDF4" stroke="#22C55E" stroke-width="2"/>
+  <text x="472" y="40" font-size="13" font-weight="700" fill="#15803D">모듈 2 — 가격협상</text>
+  <text x="472" y="57" font-size="10" fill="#555">수락·역제안·거절·만료 처리</text>
+  <text x="472" y="70" font-size="10" fill="#555">결제 완료 시 주문서로 전달</text>
+  <rect x="472" y="80" width="152" height="18" rx="4" fill="#DBEAFE"/>
+  <text x="479" y="93" font-size="9.5" fill="#1E40AF">📖 READ — 기한·조건 검증</text>
+  <rect x="472" y="103" width="158" height="18" rx="4" fill="#FEF3C7"/>
+  <text x="479" y="116" font-size="9.5" fill="#92400E">🔄 UPDATE — 상태값 변경</text>
+  <rect x="472" y="126" width="180" height="18" rx="4" fill="#DCFCE7"/>
+  <text x="479" y="139" font-size="9.5" fill="#15803D">✏️ CREATE — 거절 시 차단 생성</text>
+
+  <!-- ===== ARROWS: Module → Table ===== -->
+  <!-- arrowhead marker defs -->
+  <defs>
+    <marker id="ah-m1" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6366F1" opacity="0.75"/>
+    </marker>
+    <marker id="ah-m2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#22C55E" opacity="0.9"/>
+    </marker>
+    <marker id="ah-ext" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#F97316" opacity="0.85"/>
+    </marker>
+  </defs>
+
+  <!-- Module 1 (bottom-center ≈ x=190, y=184) -->
+  <!-- → tbl1 (top-center ≈ x=130, y=248) -->
+  <line x1="175" y1="184" x2="122" y2="248" stroke="#6366F1" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#ah-m1)" opacity="0.75"/>
+  <!-- → tbl2 (top-center ≈ x=400, y=248) -->
+  <line x1="190" y1="184" x2="392" y2="248" stroke="#6366F1" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#ah-m1)" opacity="0.75"/>
+  <!-- → tbl3 (top-center ≈ x=672, y=248) -->
+  <line x1="205" y1="184" x2="659" y2="248" stroke="#6366F1" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#ah-m1)" opacity="0.75"/>
+
+  <!-- Module 2 (bottom-center ≈ x=610, y=168) -->
+  <!-- → tbl1 -->
+  <line x1="595" y1="168" x2="140" y2="248" stroke="#22C55E" stroke-width="1.8" marker-end="url(#ah-m2)" opacity="0.9"/>
+  <!-- → tbl2 -->
+  <line x1="610" y1="168" x2="408" y2="248" stroke="#22C55E" stroke-width="1.8" marker-end="url(#ah-m2)" opacity="0.9"/>
+  <!-- → tbl3 -->
+  <line x1="625" y1="168" x2="675" y2="248" stroke="#22C55E" stroke-width="1.8" marker-end="url(#ah-m2)" opacity="0.9"/>
+
+  <!-- ===== TABLE BOXES ===== -->
+  <!-- tbl1: price_negotiation -->
+  <rect x="36" y="248" width="188" height="88" rx="10" fill="#fff" stroke="#D1D5DB" stroke-width="1.5"/>
+  <text x="52" y="269" font-size="11" font-weight="700" fill="#111" font-family="'SF Mono','Fira Code',monospace">price_negotiation</text>
+  <text x="52" y="287" font-size="9.5" fill="#6B7280">협상 메인 테이블</text>
+  <text x="52" y="300" font-size="9.5" fill="#6B7280">구매자 제안 / 역비딩 공용</text>
+  <text x="52" y="313" font-size="9.5" fill="#6B7280">channel 컬럼으로 구분</text>
+
+  <!-- tbl2: price_negotiation_config -->
+  <rect x="306" y="248" width="188" height="88" rx="10" fill="#fff" stroke="#D1D5DB" stroke-width="1.5"/>
+  <text x="322" y="268" font-size="10.5" font-weight="700" fill="#111" font-family="'SF Mono','Fira Code',monospace">price_negotiation</text>
+  <text x="322" y="282" font-size="10.5" font-weight="700" fill="#111" font-family="'SF Mono','Fira Code',monospace">_config</text>
+  <text x="322" y="298" font-size="9.5" fill="#6B7280">채널별 설정값</text>
+  <text x="322" y="311" font-size="9.5" fill="#6B7280">횟수·기한·금액 하한선</text>
+  <text x="322" y="324" font-size="9.5" fill="#6B7280">배포 없이 수정 가능</text>
+
+  <!-- tbl3: price_negotiation_restriction -->
+  <rect x="576" y="248" width="188" height="88" rx="10" fill="#fff" stroke="#D1D5DB" stroke-width="1.5"/>
+  <text x="592" y="268" font-size="10.5" font-weight="700" fill="#111" font-family="'SF Mono','Fira Code',monospace">price_negotiation</text>
+  <text x="592" y="282" font-size="10.5" font-weight="700" fill="#111" font-family="'SF Mono','Fira Code',monospace">_restriction</text>
+  <text x="592" y="298" font-size="9.5" fill="#6B7280">채널별 차단 관리</text>
+  <text x="592" y="311" font-size="9.5" fill="#6B7280">역비딩 거절 영구 박탈</text>
+  <text x="592" y="324" font-size="9.5" fill="#6B7280">구매자 제안 차단 (예정)</text>
+
+  <!-- ===== price_negotiation → order ===== -->
+  <line x1="130" y1="336" x2="318" y2="388" stroke="#F97316" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#ah-ext)" opacity="0.85"/>
+  <!-- label -->
+  <text x="160" y="375" font-size="9" fill="#F97316" font-weight="600">결제완료 시 합의가격 전달</text>
+
+  <!-- order box -->
+  <rect x="286" y="390" width="164" height="30" rx="8" fill="#FFF7ED" stroke="#F97316" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="368" y="410" font-size="11" font-weight="600" fill="#C2410C" text-anchor="middle">📦 주문서 (order)</text>
+
+  <!-- ===== LEGEND ===== -->
+  <line x1="210" y1="430" x2="244" y2="430" stroke="#6366F1" stroke-width="1.8" stroke-dasharray="5,3" opacity="0.75"/>
+  <text x="248" y="434" font-size="9.5" fill="#555">모듈 1 참조</text>
+  <line x1="318" y1="430" x2="352" y2="430" stroke="#22C55E" stroke-width="1.8" opacity="0.9"/>
+  <text x="356" y="434" font-size="9.5" fill="#555">모듈 2 참조</text>
+  <line x1="422" y1="430" x2="456" y2="430" stroke="#F97316" stroke-width="1.8" stroke-dasharray="5,3" opacity="0.85"/>
+  <text x="460" y="434" font-size="9.5" fill="#555">외부 시스템 연결</text>
+
+</svg>
+</body>
+</html>
